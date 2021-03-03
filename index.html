@@ -13,19 +13,21 @@
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
     <script>
 
+        var fisrtScreen = false;
+
         AFRAME.registerComponent('rotation-reader', {
             tick: function () {
                 this.el.object3D.rotation.x = 0;
-                console.log(this.el.object3D.rotation.y);
 
-                if (this.el.object3D.rotation.y > 1) {
+                if (this.el.object3D.rotation.y < 0 && !fisrtScreen) {
                     gsap.to(container, 1, { opacity: 1, ease: "power2.out" });
                     gsap.to(".loading-screen", .3, { opacity: 0, display: 'none', ease: "power2.out" });
+                    fisrtScreen = true;
+                    this.el.object3D.rotation.y = 0;
                 }
 
             }
         });
-
 
         // Criando propriedade 
         AFRAME.registerComponent('navigate-on-click', {
@@ -38,7 +40,6 @@
 
                 el.addEventListener('click', function () {
                     window.open(data.url);
-                    console.log("Clicked!")
                 });
             }
         });
@@ -53,6 +54,8 @@
             <!-- ASSETS -->
             <a-assets>
                 <img src="assets/bg.png" id="sea">
+                <img src="assets/bg-logo.png" id="logo-bg">
+                <img src="assets/bg-text.png" id="bg-text">
             </a-assets>
 
             <!-- LIGHTS -->
@@ -62,20 +65,19 @@
             <!-- CAMERA RIG -->
             <a-entity id="rig" position="0 4 0" rotation="0 0 0">
                 <a-camera id="camera" position="0 -3 0" wasd-controls-enabled="false" rotation="0 0 0" far="1000" fov="50" rotation-reader look-controls animation__rotateCamera="property: rotation; startEvents: rotateCamera;" animation__moveCamera="property: position; startEvents: moveCamera;">
-                    <!-- <a-cursor></a-cursor> -->
                 </a-camera>
             </a-entity>
 
             <!-- PLANE -->
             <a-plane id="floor" color="#1F58AF" material="src: #sea" geometry="" rotation="-90 0 0" scale="20 20" position="0 -9.9 0"></a-plane>
             <!-- SEA -->
-            <a-cylinder id="sea" segments-height="4" segments-radial="30" material="shader: flat; side: back; transparent: true; src: #sea" radius="3" rotation="0 -66 0" position="0 1 0" scale="3 6 3" open-ended="true">
+            <a-cylinder id="sea" segments-height="4" segments-radial="30" material="shader: flat; side: back; transparent: true; src: #sea" radius="3" rotation="0 -165 0" position="0 1 0" scale="3 6 3" open-ended="true">
             </a-cylinder>
 
             <!-- CENTER IMAGE -->
-            <!-- <a-entity>
-                <a-image src="assets/center.png" position="0 -1 -5" scale="1 1 1" rotation="0 0 0"></a-image>
-            </a-entity> -->
+            <a-entity>
+                <a-image src="#bg-text" position="0 -1 -5" width="2" height="0.05" rotation="0 0 0"></a-image>
+            </a-entity>
 
         </a-scene>
     </div>
