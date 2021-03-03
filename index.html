@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Business</title>
+    <link rel="stylesheet" href="css/loading-bar.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script> -->
+
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script>
+
+        AFRAME.registerComponent('rotation-reader', {
+            tick: function () {
+                this.el.object3D.rotation.x = 0;
+                console.log(this.el.object3D.rotation.y);
+
+                if (this.el.object3D.rotation.y > 1) {
+                    gsap.to(container, 1, { opacity: 1, ease: "power2.out" });
+                    gsap.to(".loading-screen", .3, { opacity: 0, display: 'none', ease: "power2.out" });
+                }
+
+            }
+        });
+
+
+        // Criando propriedade 
+        AFRAME.registerComponent('navigate-on-click', {
+            schema: {
+                url: { default: '' }
+            },
+            init: function () {
+                var data = this.data;
+                var el = this.el;
+
+                el.addEventListener('click', function () {
+                    window.open(data.url);
+                    console.log("Clicked!")
+                });
+            }
+        });
+
+    </script>
+</head>
+
+<body>
+
+    <div class="container">
+        <a-scene vr-mode-ui="enabled: false" cursor="rayOrigin: mouse">
+            <!-- ASSETS -->
+            <a-assets>
+                <img src="assets/bg.png" id="sea">
+            </a-assets>
+
+            <!-- LIGHTS -->
+            <a-entity light="type: ambient; intensity: 1">
+            </a-entity>
+
+            <!-- CAMERA RIG -->
+            <a-entity id="rig" position="0 4 0" rotation="0 0 0">
+                <a-camera id="camera" position="0 -3 0" wasd-controls-enabled="false" rotation="0 0 0" far="1000"
+                    fov="50" rotation-reader look-controls
+                    animation__rotateCamera="property: rotation; startEvents: rotateCamera;"
+                    animation__moveCamera="property: position; startEvents: moveCamera;">
+                    <!-- <a-cursor></a-cursor> -->
+                </a-camera>
+            </a-entity>
+
+            <!-- PLANE -->
+            <a-plane id="floor" color="#1F58AF" material="src: #sea" geometry="" rotation="-90 0 0" scale="20 20"
+                position="0 -9.9 0"></a-plane>
+            <!-- SEA -->
+            <a-cylinder id="sea" segments-height="4" segments-radial="30"
+                material="shader: flat; side: back; transparent: true; src: #sea" radius="3" rotation="0 -66 0"
+                position="0 1 0" scale="3 6 3" open-ended="true">
+            </a-cylinder>
+
+            <!-- CENTER IMAGE -->
+            <!-- <a-entity>
+                <a-image src="assets/center.png" position="0 -1 -5" scale="1 1 1" rotation="0 0 0"></a-image>
+            </a-entity> -->
+
+        </a-scene>
+    </div>
+
+    <div class="loading-screen">
+        <div class="bg-load"></div>
+        <div class="loadScreen-elements">
+
+            <!-- LOAD BAR -->
+            <!-- <div class="ldBar" data-type="fill" data-img="assets/load-img.png" data-fill-background="transparent"
+                data-fill-dir="ltr" data-img-size="100,100"></div> -->
+            <!-- TXT -->
+            <div class="load-txt-container">
+                <img src="assets/load-txt.png" class="load-txt-1">
+                <img src="assets/load-txt-click.png" class="load-txt-2">
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="js/loading-bar.min.js"></script>
+    <script src="js/gsap.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>
