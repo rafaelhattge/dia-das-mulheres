@@ -6,7 +6,7 @@ body {
     opacity: 1;
 }
 
-.loading-screen {
+.loading-screen, .final-screen {
     position: absolute;
     top: 0;
     left: 0;
@@ -22,10 +22,6 @@ body {
     opacity: 0;
 }
 
-.ready-text {
-    /* opacity: 0; */
-}
-
 .bg-load {
     position: absolute;
     top: 0;
@@ -35,39 +31,6 @@ body {
     background-image: url(../assets/bg-loadScreen.jpg);
     background-size: cover;
     background-position: 50% 0%;
-}
-
-.loadScreen-elements {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.ldBar {
-    margin: 0 auto;
-    font-size: 0 !important;
-    width: 20vh !important;
-    height: 20vh !important;
-}
-
-.load-txt-container {
-    position: relative;
-    max-width: 100%;
-    width: 30vh;
-    transform: translateY(-200%);
-}
-
-.load-txt-1 {
-    position: relative;
-}
-
-.load-txt-2 {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    opacity: 0;
 }
 
 img {
@@ -93,43 +56,37 @@ img {
     background-image: url(../assets/bg-loadScreen.jpg);
 }
 
-#loading-elements {
+#elements {
     position: absolute;
-    top: 53%;
+    top: 50%;
     left: 50%;
-    max-width: 66%;
-    width: 37vh;
+    max-width: 80%;
+    width: 45vh;
     transform: translate(-50%, -50%);
 }
 
-#dia-mulher-text {
+#f1-db-logo {
     position: relative;
-    margin-bottom: 12%;
+    margin: 0 auto 35% auto;
+    width: 20%;
+}
+
+#f1-title {
+    position: relative;
+    margin-bottom: 10%;
     width: 100%;
 }
 
-#logo-text {
+#f1-phone {
     position: relative;
-    margin: 0 auto 30% auto;
-    width: 80%;
+    margin: 0 auto 9% auto;
+    width: 37%;
 }
 
-#phone-container {
+#f1-text {
     position: relative;
-    margin: 0 auto 13% auto;
-    width: 57%;
-}
-
-#loading-text {
-    position: relative;
-    margin-bottom: 25%;
-    width: 100%;
-}
-
-#logo {
-    position: relative;
+    width: 65%;
     margin: 0 auto;
-    width: 35%;
 }
 
 .phone-anim, .dia-mulher-text {
@@ -142,7 +99,8 @@ img {
     opacity: 0;
 }
 
-.loading-text-anim, .logo-text {
+.text-anima {
+    transform: translateY(30%);
     opacity: 0;
 }
 
